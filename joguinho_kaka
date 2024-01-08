@@ -1,0 +1,40 @@
+import tkinter as tk
+
+class Personagem:
+    def __init__(self, nome, papel, poder):
+        self.nome = nome
+        self.papel = papel
+        self.poder = poder
+
+class JogoInterface:
+    def __init__(self, master):
+        self.master = master
+        master.title("Meu Jogo")
+
+        # Adicione widgets, botões, etc., conforme necessário
+        self.label_audrey = tk.Label(master, text=f"Audrey: {audrey.papel} - Poder: {audrey.poder}")
+        self.label_audrey.pack()
+
+        self.label_isaque = tk.Label(master, text=f"Isaque: {isaque.papel} - Poder: {isaque.poder}")
+        self.label_isaque.pack()
+
+        self.label_yuri = tk.Label(master, text=f"Yuri: {yuri.papel} - Poder: {yuri.poder}")
+        self.label_yuri.pack()
+
+        self.label_kiara = tk.Label(master, text=f"Kiara: {kiara.papel} - Poder: {kiara.poder}")
+        self.label_kiara.pack()
+
+# Instâncias com poderes iniciais
+audrey = Personagem("Audrey", "Menina ajudante da raposa", "Curandeira")
+isaque = Personagem("Isaque", "Amigo da Audrey e da raposa", "Teletransporte")
+yuri = Personagem("Yuri", "Tio da Audrey, peleiro que não mata animais", "Comunicação com animais")
+kiara = Personagem("Kiara", "Uma senhora", "Ilusionista")
+
+# Crie a instância principal do Tkinter
+root = tk.Tk()
+
+# Inicialize a interface do jogo
+jogo_interface = JogoInterface(root)
+
+# Inicie o loop principal
+root.mainloop()
