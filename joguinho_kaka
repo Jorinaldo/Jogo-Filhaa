@@ -8,7 +8,7 @@ class Personagem:
         self.descricao = descricao
         self.habilidade = habilidade
         self.imagem_path = imagem_path
-        self.imagem = Image.open(imagem_path)
+        self.imagem = Image.open(imagem_path).resize((100, 100), Image.ANTIALIAS)
 
 class Jogo:
     def __init__(self, root):
@@ -16,7 +16,7 @@ class Jogo:
         self.root.title("Jogo Filha")
         self.personagens = self.carregar_personagens()
 
-        # Adicionando código para exibir as imagens dos personagens
+        # Adicionando código para exibir as imagens dos personagens em uma única coluna
         for i, personagem in enumerate(self.personagens):
             label = tk.Label(root, text=f"{personagem.nome}\n{personagem.descricao}\n{personagem.habilidade}")
             label.grid(row=i, column=0)
