@@ -1,10 +1,12 @@
 import tkinter as tk
+from PIL import Image, ImageTk
 
 class Personagem:
-    def __init__(self, nome, papel, poder):
+    def __init__(self, nome, papel, poder, imagem_path):
         self.nome = nome
         self.papel = papel
         self.poder = poder
+        self.imagem_path = imagem_path
 
 class JogoInterface:
     def __init__(self, master):
@@ -13,22 +15,22 @@ class JogoInterface:
 
         # Adicione widgets, botões, etc., conforme necessário
         self.label_audrey = tk.Label(master, text=f"Audrey: {audrey.papel} - Poder: {audrey.poder}")
+
+        # Carregando imagem do personagem Audrey
+        self.imagem_audrey = Image.open(audrey.imagem_path)
+        self.photo_audrey = ImageTk.PhotoImage(self.imagem_audrey)
+        self.label_imagem_audrey = tk.Label(master, image=self.photo_audrey)
+
         self.label_audrey.pack()
+        self.label_imagem_audrey.pack()
 
-        self.label_isaque = tk.Label(master, text=f"Isaque: {isaque.papel} - Poder: {isaque.poder}")
-        self.label_isaque.pack()
+        # Adicione o mesmo código para os outros personagens
 
-        self.label_yuri = tk.Label(master, text=f"Yuri: {yuri.papel} - Poder: {yuri.poder}")
-        self.label_yuri.pack()
-
-        self.label_kiara = tk.Label(master, text=f"Kiara: {kiara.papel} - Poder: {kiara.poder}")
-        self.label_kiara.pack()
-
-# Instâncias com poderes iniciais
-audrey = Personagem("Audrey", "Menina ajudante da raposa", "Curandeira")
-isaque = Personagem("Isaque", "Amigo da Audrey e da raposa", "Teletransporte")
-yuri = Personagem("Yuri", "Tio da Audrey, peleiro que não mata animais", "Comunicação com animais")
-kiara = Personagem("Kiara", "Uma senhora", "Ilusionista")
+# Instâncias com informações iniciais dos personagens
+audrey = Personagem("Audrey", "Menina ajudante da raposa", "Curandeira", "audrey.png")
+isaque = Personagem("Isaque", "Amigo da Audrey e da raposa", "Teletransporte", "isaque.png")
+yuri = Personagem("Yuri", "Tio da Audrey, peleiro que não mata animais", "Comunicação com animais", "yuri.png")
+kiara = Personagem("Kiara", "Uma senhora", "Ilusionista", "kiara.png")
 
 # Crie a instância principal do Tkinter
 root = tk.Tk()
