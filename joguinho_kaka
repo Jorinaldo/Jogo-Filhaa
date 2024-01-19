@@ -1,43 +1,48 @@
 import tkinter as tk
 from PIL import Image, ImageTk
-
+import os
 
 class Personagem:
-    def __init__(self, nome, imagem_path, poder):
+    def __init__(self, nome, descricao, habilidade, imagem_path):
         self.nome = nome
+        self.descricao = descricao
+        self.habilidade = habilidade
+        self.imagem_path = imagem_path
         self.imagem = Image.open(imagem_path)
-        self.poder = poder
 
 class Jogo:
     def __init__(self, root):
         self.root = root
-        self.root.title("Jogo da Filha")
-        
-        # Adicionando personagens
-        audrey = Personagem("Audrey", "audrey.png", "Ajudante da raposa")
-        isaque = Personagem("Isaque", "isaque.png", "Amigo da Audrey e da raposa")
-        yuri = Personagem("Yuri", "yuri.png", "Tio da Audrey, peleiro que não mata animais")
-        kiara = Personagem("Kiara", "kiara.png", "Senhora")
-        
-        self.personagens = [audrey, isaque, yuri, kiara]
-        
-        # Configurando interface gráfica
-        self.canvas = tk.Canvas(root, width=800, height=600)
-        self.canvas.pack()
+        self.root.title("Jogo Filha")
+        self.personagens = self.carregar_personagens()
 
-        # Adicionando imagens dos personagens ao canvas
-        for personagem in self.personagens:
-            personagem.imagem = personagem.imagem.resize((100, 100), Image.ANTIALIAS)
-            personagem.imagem = ImageTk.PhotoImage(personagem.imagem)
-            personagem.imagem_label = self.canvas.create_image(50, 50, anchor=tk.NW, image=personagem.imagem)
-
-        # Adicionando eventos de clique nas imagens
+        # Adicionando código para exibir as imagens dos personagens
         for i, personagem in enumerate(self.personagens):
-            self.canvas.tag_bind(personagem.imagem_label, '<Button-1>', lambda event, index=i: self.mostrar_poder(index))
+            label = tk.Label(root, text=f"{personagem.nome}\n{personagem.descricao}\n{personagem.habilidade}")
+            label.grid(row=i, column=0)
 
-    def mostrar_poder(self, index):
-        personagem = self.personagens[index]
-        tk.messagebox.showinfo("Poder do Personagem", f"{personagem.nome}: {personagem.poder}")
+            imagem_personagem = ImageTk.PhotoImage(personagem.imagem)
+            label_imagem = tk.Label(root, image=imagem_personagem)
+            label_imagem.grid(row=i, column=1)
+
+            # Mantendo uma referência à imagem para evitar que seja coletada pelo garbage collector
+            label_imagem.image = imagem_personagem
+
+    def carregar_personagens(self):
+        # Lista de personagens
+        personagens = [
+            Personagem("Audrey", "Amiga da Kiara e da raposa", "Comunicação com animais", "audrey.png"),
+            Personagem("Isaque", "Amigo da Audrey e da raposa", "Teletransporte", "isaque.png"),
+            Personagem("Yuri", "Tio da Audrey, peleiro que não mata animais", "Controle da natureza", "yuri.png"),
+            Personagem("Kiara", "Amiga da Audrey e do Isaque", "Invisibilidade", "kiara.png")
+        ]
+
+        # Verificando se os arquivos de imagem existem
+        for personagem in personagens:
+            if not os.path.exists(personagem.imagem_path):
+                print(f"Erro: Arquivo {personagem.imagem_path} não encontrado.")
+
+        return personagens
 
 if __name__ == "__main__":
     root = tk.Tk()
