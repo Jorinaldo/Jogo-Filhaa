@@ -31,10 +31,10 @@ class Jogo:
     def carregar_personagens(self):
         # Lista de personagens
         personagens = [
-            Personagem("Audrey", "Amiga da Kiara e da raposa", "Comunicação com animais", "audrey.png"),
+            Personagem("Audrey", "Amiga do Isaque e da raposa", "Comunicação com animais", "audrey.png"),
             Personagem("Isaque", "Amigo da Audrey e da raposa", "Teletransporte", "isaque.png"),
             Personagem("Yuri", "Tio da Audrey, peleiro que não mata animais", "Controle da natureza", "yuri.png"),
-            Personagem("Kiara", "Amiga da Audrey e do Isaque", "Invisibilidade", "kiara.png")
+            Personagem("Kiara", "", "Invisibilidade", "kiara.png")
         ]
 
         # Verificando se os arquivos de imagem existem
