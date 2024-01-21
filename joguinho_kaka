@@ -14,27 +14,46 @@ class Jogo:
     def __init__(self, root):
         self.root = root
         self.root.title("Jogo Filha")
+
+        # Configurando o Canvas com a imagem de plano de fundo
+        imagem_fundo = Image.open("plano_de_fundo.jpg")
+        novo_tamanho = (1024, 768)  # Defina o tamanho desejado
+        imagem_fundo = imagem_fundo.resize(novo_tamanho, Image.ANTIALIAS)
+        imagem_fundo = ImageTk.PhotoImage(imagem_fundo)
+
+        canvas = tk.Canvas(root, width=novo_tamanho[0], height=novo_tamanho[1])
+        canvas.pack(fill="both", expand=True)
+
+        canvas.create_image(0, 0, anchor=tk.NW, image=imagem_fundo)
+
         self.personagens = self.carregar_personagens()
 
         # Adicionando código para exibir as imagens dos personagens em uma única coluna
         for i, personagem in enumerate(self.personagens):
-            label = tk.Label(root, text=f"{personagem.nome}\n{personagem.descricao}\n{personagem.habilidade}")
-            label.grid(row=i, column=0)
+            # Label para o texto da descrição em preto
+            label_descricao = tk.Label(canvas, text=f"{personagem.nome}\n{personagem.descricao}\n{personagem.habilidade}", fg="black")
+            label_descricao.grid(row=i, column=0, padx=10, pady=10)
 
-            imagem_personagem = ImageTk.PhotoImage(personagem.imagem)
-            label_imagem = tk.Label(root, image=imagem_personagem)
-            label_imagem.grid(row=i, column=1)
+            # Criando uma PhotoImage redimensionada
+            imagem_personagem = ImageTk.PhotoImage(personagem.imagem.resize((50, 50), Image.ANTIALIAS))
+            
+            label_imagem = tk.Label(canvas, image=imagem_personagem)
+            label_imagem.grid(row=i, column=1, padx=10, pady=10)
 
             # Mantendo uma referência à imagem para evitar que seja coletada pelo garbage collector
             label_imagem.image = imagem_personagem
 
+        # Botão para iniciar o jogo
+        botao_iniciar = tk.Button(canvas, text="Iniciar Jogo", command=self.iniciar_jogo)
+        botao_iniciar.grid(row=len(self.personagens), column=0, columnspan=2, pady=20)
+
     def carregar_personagens(self):
         # Lista de personagens
         personagens = [
-            Personagem("Audrey", "Amiga do Isaque e da raposa", "Comunicação com animais", "audrey.png"),
+            Personagem("Audrey", "Amiga da Kiara e da raposa", "Comunicação com animais", "audrey.png"),
             Personagem("Isaque", "Amigo da Audrey e da raposa", "Teletransporte", "isaque.png"),
             Personagem("Yuri", "Tio da Audrey, peleiro que não mata animais", "Controle da natureza", "yuri.png"),
-            Personagem("Kiara", "", "Invisibilidade", "kiara.png")
+            Personagem("Kiara", "Amiga da Audrey e do Isaque", "Invisibilidade", "kiara.png")
         ]
 
         # Verificando se os arquivos de imagem existem
@@ -43,6 +62,10 @@ class Jogo:
                 print(f"Erro: Arquivo {personagem.imagem_path} não encontrado.")
 
         return personagens
+
+    def iniciar_jogo(self):
+        # Adicione aqui a lógica para iniciar o jogo
+        print("Jogo iniciado!")
 
 if __name__ == "__main__":
     root = tk.Tk()
