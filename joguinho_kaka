@@ -64,8 +64,17 @@ class Jogo:
         return personagens
 
     def iniciar_jogo(self):
-        # Adicione aqui a lógica para iniciar o jogo
-        print("Jogo iniciado!")
+        # Fechar a janela atual
+        self.root.destroy()
+
+        # Criar uma nova janela para o mundo do jogo
+        mundo_jogo = tk.Tk()
+        mundo_jogo.title("Mundo do Jogo")
+
+        # Adicione aqui a lógica para o mundo do jogo
+        # Você pode criar um novo objeto Jogo para gerenciar essa parte do código se necessário
+
+        mundo_jogo.mainloop()
 
 if __name__ == "__main__":
     root = tk.Tk()
