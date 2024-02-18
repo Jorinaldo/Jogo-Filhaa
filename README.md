@@ -1,2 +1,2 @@
-jogo desenvolvido para Catarine 
+Jogo Desenvolvido para Catarine 
 desenvolvido em python inicialmente 
